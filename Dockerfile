@@ -9,14 +9,32 @@ RUN apt-get update && apt-get install -y \
     libceres-dev \
     libopencv-dev \
     cmake \
-    ninja-build
+    ninja-build \
+    python3 \
+    python3-pip \
+    python3-venv \
+    python3.12-venv \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+# # Create symbolic links for python/pip commands
+RUN ln -s /usr/bin/python3 /usr/bin/python
 
 WORKDIR /app
 COPY . .
 
-# Build the project
-# RUN mkdir build && cd build && cmake -G Ninja .. && ninja
+RUN python -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
 
+# Build the project
+
+# RUN mkdir build && cd build && \
+#    cmake -G Ninja .. && \
+#    ninja && \
+#    cd .. && \
+#    pip install .
+
+# CMD ["/bin/bash"]
 
 # docker buildx build --platform linux/amd64,linux/arm64 -t madpose .
 # docker run -it --rm madpose:latest /bin/bash

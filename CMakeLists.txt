@@ -8,6 +8,8 @@ if(CMAKE_CXX_COMPILER_VERSION VERSION_LESS 9.1)
     message(FATAL_ERROR "GCC version needs to be at least 9.1")
 endif()
 
+set(CMAKE_INTERPROCEDURAL_OPTIMIZATION OFF)
+
 # Options
 option(FETCH_POSELIB "Whether to use PoseLib with FetchContent or with self-installed software" ON)
 
