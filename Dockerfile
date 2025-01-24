@@ -27,6 +27,13 @@ RUN python -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 
 # Build the project
+RUN mkdir build && cd build && \
+    cmake .. && \
+    make -j4 && \
+    cd ..
+
+# run pip
+RUN pip install .
 
 # RUN mkdir build && cd build && \
 #    cmake -G Ninja .. && \
@@ -34,7 +41,7 @@ ENV PATH="/opt/venv/bin:$PATH"
 #    cd .. && \
 #    pip install .
 
-# CMD ["/bin/bash"]
+CMD ["/bin/bash"]
 
 # docker buildx build --platform linux/amd64,linux/arm64 -t madpose .
 # docker run -it --rm madpose:latest /bin/bash
